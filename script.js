@@ -1,3 +1,42 @@
+function locomotiveAnimation(){
+    gsap.registerPlugin(ScrollTrigger);
+
+const locoScroll = new LocomotiveScroll({
+  el: document.querySelector("#main"),
+  smooth: true,
+
+  // for tablet smooth
+  tablet: { smooth: true },
+
+  // for mobile
+  smartphone: { smooth: true }
+});
+locoScroll.on("scroll", ScrollTrigger.update);
+
+ScrollTrigger.scrollerProxy("#main", {
+  scrollTop(value) {
+    return arguments.length
+      ? locoScroll.scrollTo(value, 0, 0)
+      : locoScroll.scroll.instance.scroll.y;
+  },
+  getBoundingClientRect() {
+    return {
+      top: 0,
+      left: 0,
+      width: window.innerWidth,
+      height: window.innerHeight
+    };
+  }
+});
+
+ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
+
+ScrollTrigger.refresh();
+
+}
+
+// locomotiveAnimation()
+
 function navAnimation(){
     var nav = document.querySelector("nav")
 nav.addEventListener("mouseenter", function () {
@@ -90,3 +129,66 @@ video.addEventListener("click", function(){
 }
 
 page3Animation()
+
+function videoAnimation(){
+    let section = document.querySelectorAll(".sec-right")
+section.forEach(function(elem){
+    elem.addEventListener("mousemove", function(){
+        elem.childNodes[3].style.opacity = 1
+        elem.childNodes[3].play()
+
+    })
+    elem.addEventListener("mouseleave", function(){
+        elem.childNodes[3].style.opacity = 0
+        elem.childNodes[3].laod()
+
+    })
+})
+}
+
+videoAnimation()
+
+function page7Animation(){
+    gsap.from(".btn7-part2 h4",{
+    x:0,
+    duration:1,
+    scrollTrigger:{
+        trigger:".btn7-part2",
+        scroller:"body",
+        // markers:true,
+        start:"top 90%",
+        end:"top 10%",
+        scrub:true
+    }
+})
+}
+
+page7Animation()
+
+function loadingAnimation(){
+    let tl = gsap.timeline()
+tl.from("#page1",{
+    opacity:0,
+    duration:0.3,
+    delay:0.2
+})
+tl.from("#page1", {
+    transform:"ScaleX(0.7) scaleY(0.2) translateY(80%)",
+    borderRadius:"100px",
+    duration:1,
+    ease:"expo.out"
+})
+
+tl.from("nav",{
+    opacity: 0
+})
+
+tl.from("#page1 h1, #page1 p, #page1 div",{
+    opacity: 0,
+    duration:0.5,
+    stagger:0.2
+    
+})
+}
+
+loadingAnimation()
