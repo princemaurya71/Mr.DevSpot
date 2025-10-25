@@ -712,7 +712,5 @@ footer{
 
 footer .content{
     font-size: 1vh;
-    border-left:1px solid #dadada;
-    border-right:1px solid #dadada;
     padding: 1vh;
 }
